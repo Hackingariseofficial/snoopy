@@ -10,6 +10,41 @@ trap 'printf "\n";partial;exit 1' 2
 banner() {
 figlet SNOOPY 
 
+echo " MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMMMMMMMMMMMMMDOMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMMMMMMMMMMM,.... +MNMMMMMMMM"
+echo " MMMMMMMMMMMMMMMMMMMZNZ..........7DMMMMMM"
+echo " MMMMMMMMMNM=.....................ZDMMMMM"
+echo " MMMMMMMM+.........................ZMMMMM"
+echo " MMMMMMM............I,..............MMMMM"
+echo " MMMMMN.............D:..............+ZMMM"
+echo " MM8MMM........................I.8?MMMMMM"
+echo " MN==MM.......................M7MDINI77MM"
+echo " MMMMMM......................N7MMIMMM.NMM"
+echo " MMMMMMM....................8.MMMMNMM.MMM"
+echo " MMMMMMM8M,.................MMMMMMD?M:7MM"
+echo " MMMMMMMMMM8M:..............NMNMMMMM~MMMM"
+echo " MMMMMMMMMMMMMDO$...........+MIMMMM.MMMMM"
+echo " MMMMMMMMMMMMMMMMMOM.....DDNM,8MM~IMMMMMM"
+echo " MMMMMMMMMMMMMMMMMOM...,DMMMMMOMMIMMMMMMM"
+echo " MMMMMMMMMMMMMMMMMN+...MMMMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMMMNN.....,8MMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMMO8.......MMMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMO$....+...?MMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMN.....7....DMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMM,....:....8MMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMM.....N....8MMMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMDM.....N....=~7MMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMDM....M..N,NMMDMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMMNM,...M8.7M=..ODMMMMMMMMMM"
+echo " MMMMMMMMMMMMMMMM8......,NM878NMMMMMMMMMM"
+echo " MMMMMMMMMMMMMNNNN..:....ZMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMD,....O..Z....8MMMMMMMMMMMMMMM"
+echo " MMMMMMMMMI ,MZ..........:DMMMMMMMMMMMMMM"
+echo " MMMMMMMMN~+M..............ZDMMMMMMMMMMMM"
+echo " MMMMMMMMMMZD:$..I......,:MOMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+echo " MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
 printf "\e[1;77m CODING BY LAUGHING MAN \e[0m\n"
 printf "\e[1;77m for  \e[0m\n"
 printf "\e[1;77m hackingvision \e[0m\n"
@@ -29,8 +64,9 @@ fi
 
 scanner() {
 
-read -p $'\e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input Username:\e[0m ' username
-
+read -p $'\e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input name:\e[0m ' username
+read -p $'/e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input location:\e[0m ' location
+read -p $'/e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input age:\e[0m ' age
 if [[ -e $username.txt ]]; then
 printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Removing previous file:\e[0m\e[1;77m %s.txt" $username
 rm -rf $username.txt
@@ -991,6 +1027,20 @@ printf "\e[1;92m Found!\e[0m https://ello.co/%s\n" $username
 printf "https://ello.co/%s\n" $username >> $username.txt
 fi
 
+## Tinder 
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Tinder: \e[0m"
+check1=$(curl -s -i "https://tindating.online/members/$username" -H "Accept-Language: en" -L | grep -o 'profile:username' ; echo $?)
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://tindating.online/members/%s\n" $username
+printf "https://tindating.online/members/%s\n" $username >> $username.txt
+fi
+
+
 ## Tracky
 
 printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Tracky: \e[0m"
@@ -1017,6 +1067,20 @@ printf "\e[1;92m Found!\e[0m https://www.tripit.com/people/%s#/profile/basic-inf
 printf "https://www.tripit.com/people/%s#/profile/basic-info\n" $username >> $username.txt
 fi
 
+## Xbox live 
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] xbox live: \e[0m"
+check1=$(curl -s -i "https://www.xboxgamertag.com/search/$username" -H "Accept-Language: en" -L | grep -o 'profile:username' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://www.xboxgamertag.com/search/~%s\n" $username
+printf "https://www.xboxgamertag.com/search/~%s\n" $username >> $username.txt
+fi
+
 ## Basecamp
 
 printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] Basecamp: \e[0m"
@@ -1034,4 +1098,3 @@ partial
 }
 banner
 scanner
-

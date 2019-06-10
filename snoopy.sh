@@ -9,7 +9,6 @@ trap 'printf "\n";partial;exit 1' 2
 
 banner() {
 figlet SNOOPY 
-
 echo " MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
 echo " MMMMMMMMMMMMMMMMMMMMMMMMMDOMMMMMMMMMMMMM"
 echo " MMMMMMMMMMMMMMMMMMMMMMM,.... +MNMMMMMMMM"
@@ -65,14 +64,29 @@ fi
 scanner() {
 
 read -p $'\e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input name:\e[0m ' username
-read -p $'/e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input location:\e[0m ' location
-read -p $'/e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input age:\e[0m ' age
+read -p $'\e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input location:\e[0m 'location
+
+
 if [[ -e $username.txt ]]; then
-printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Removing previous file:\e[0m\e[1;77m %s.txt" $username
+printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Removing previous file:\e[0m\e[1;77m %s.txt" $username $username
 rm -rf $username.txt
 fi
 printf "\n"
 printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Checking username\e[0m\e[1;77m %s\e[0m\e[1;92m on: \e[0m\n" $username
+
+
+##IRISH PERSON LOOK UP 
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] IRISH PERSON LOOK UP : \e[0m"
+check1=$(curl -s -i "http://www.118.ie/Results.aspx/residential/$location/$username/" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+if [[ $check1 == *'0'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'1'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m http://www.118.ie/Results.aspx/residential/$location/%s\n" $username
+printf "http://www.118.ie/Results.aspx/residential/p/%s\n" $username >> $username.txt
+fi
+
 
 ## INSTAGRAM
 
@@ -1070,7 +1084,7 @@ fi
 ## Xbox live 
 
 printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m] xbox live: \e[0m"
-check1=$(curl -s -i "https://www.xboxgamertag.com/search/$username" -H "Accept-Language: en" -L | grep -o 'profile:username' ; echo $?)
+check1=$(curl -s -i "https://www.xboxgamertag.com/search/$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
 
 
 if [[ $check1 == *'1'* ]] ; then 
@@ -1094,7 +1108,37 @@ printf "\e[1;92m Found!\e[0m https://%s.basecamphq.com/login\n" $username
 printf "https://%s.basecamphq.com/login\n" $username >> $username.txt
 
 fi
+
+##spokeo
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m]  spokeo: \e[0m"
+check1=$(curl -s -i "https://www.spokeo.com/$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://www.spokeo.com/~%s\n" $username
+printf "https://www.spokeo.com/~%s\n" $username >> $username.txt
+fi
+
+##discord 
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m]  discord: \e[0m"
+check1=$(curl -s -i "https://discordhub.com/user/search?user_search_bar=$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://discordhub.com/user/search?user_search_bar=" $username
+printf "https://discordhub.com/user/search?user_search_bar="$username >> $username.txt
+fi
+
 partial
 }
 banner
 scanner
+
+

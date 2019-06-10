@@ -1,8 +1,8 @@
 #!/bin/bash
 # snoopy
 # Author: laughingman 
-# hackingvision
-# hackingvision.com
+# Hackingarise
+# hackingarise.com
 
 
 trap 'printf "\n";partial;exit 1' 2

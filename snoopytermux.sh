@@ -1,8 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 #snoopy
 # Author: laughingman 
-# hackingvision
-# hackingvision.com
+# hackingarise
+#hackingarise.com
 
 
 trap 'printf "\n";partial;exit 1' 2

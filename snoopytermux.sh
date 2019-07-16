@@ -49,7 +49,6 @@ printf "\e[1;77m for  \e[0m\n"
 printf "\e[1;77m hackingvision \e[0m\n"
 printf "\n"
 
-
 }
 
 partial() {
@@ -64,11 +63,11 @@ fi
 scanner() {
 
 read -p $'\e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input name:\e[0m ' username
-read -p $'\e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input location:\e[0m ' location
-read -p read -p "Select>: " option
+read -p $'\e[1;92m[\e[0m\e[1;77m?\e[0m\e[1;92m] Input location:\e[0m 'location
+
 
 if [[ -e $username.txt ]]; then
-printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Removing previous file:\e[0m\e[1;77m %s.txt" $username
+printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Removing previous file:\e[0m\e[1;77m %s.txt" $username $username
 rm -rf $username.txt
 fi
 printf "\n"
@@ -1108,8 +1107,67 @@ printf "\e[1;92m Found!\e[0m https://%s.basecamphq.com/login\n" $username
 printf "https://%s.basecamphq.com/login\n" $username >> $username.txt
 
 fi
+
+##spokeo
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m]  spokeo: \e[0m"
+check1=$(curl -s -i "https://www.spokeo.com/$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://www.spokeo.com/~%s\n" $username
+printf "https://www.spokeo.com/~%s\n" $username >> $username.txt
+fi
+
+##discord 
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m]  discord: \e[0m"
+check1=$(curl -s -i "https://discordhub.com/user/search?user_search_bar=$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://discordhub.com/user/search?user_search_bar=" $username
+printf "https://discordhub.com/user/search?user_search_bar="$username >> $username.txt
+fi
+
+#playstation network
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m]  Playstation-network: \e[0m"
+check1=$(curl -s -i "https://psnprofiles.com/search/users?q=$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://psnprofiles.com/search/users?q=/~%s\n" $username
+printf "https://psnprofiles.com/search/users?q=/~%s\n" $username >> $username.txt
+fi
+
+
+
+##Snapchat
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m]  Snapchat: \e[0m"
+check1=$(curl -s -i "https://sovip.io/?pa=1&b=1&q=$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://sovip.io/?pa=1&b=1&q=/~%s\n" $username
+printf "https://sovip.io/?pa=1&b=1&q=/~%s\n" $username >> $username.txt
+fi
+
 partial
 }
 banner
 scanner
+
 

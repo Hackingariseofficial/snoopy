@@ -1136,6 +1136,36 @@ printf "\e[1;92m Found!\e[0m https://discordhub.com/user/search?user_search_bar=
 printf "https://discordhub.com/user/search?user_search_bar="$username >> $username.txt
 fi
 
+#playstation network
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m]  Playstation-network: \e[0m"
+check1=$(curl -s -i "https://psnprofiles.com/search/users?q=$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://psnprofiles.com/search/users?q=/~%s\n" $username
+printf "https://psnprofiles.com/search/users?q=/~%s\n" $username >> $username.txt
+fi
+
+
+
+##Snapchat
+
+printf "\e[1;77m[\e[0m\e[1;92m+\e[0m\e[1;77m]  Snapchat: \e[0m"
+check1=$(curl -s -i "https://sovip.io/?pa=1&b=1&q=$username" -H "Accept-Language: en" -L | grep -o 'HTTP/2 404\|404 Not Found' ; echo $?)
+
+
+if [[ $check1 == *'1'* ]] ; then 
+printf "\e[1;93mNot Found!\e[0m\n"
+elif [[ $check1 == *'0'* ]]; then 
+
+printf "\e[1;92m Found!\e[0m https://sovip.io/?pa=1&b=1&q=/~%s\n" $username
+printf "https://sovip.io/?pa=1&b=1&q=/~%s\n" $username >> $username.txt
+fi
+
 partial
 }
 banner
